@@ -15,7 +15,7 @@ const Icon = defineComponent({
   render() {
     const { size, onClick, style, icon } = this;
     return (
-      <div class="p-icon">
+      <i class="p-icon">
         <svg
           class="icon"
           aria-hidden="true"
@@ -26,7 +26,7 @@ const Icon = defineComponent({
         >
           <use xlink:href={`#${icon}`} />
         </svg>
-      </div>
+      </i>
     );
   },
 });

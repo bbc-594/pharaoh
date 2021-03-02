@@ -4,17 +4,48 @@
     box-shadow: 0px 0px 0 2px @primary-1;
 }
 .p-input {
-    input {
-        width: 100%;
+    outline: none;
+    display: flex;
+    position: relative;
+    // justify-content: space-between;
+    // overflow: hidden;
+     .p-input-prefix, .p-input-suffix {
+        //  flex: 1;
         box-sizing: border-box;
-        padding: 4px 10px;
+        width: 36px;
+        background-color: @gray-color;
+        z-index: 2;
+        border: 1px solid @gray-border-color;
+     }
+     .p-input-suffix {
+         cursor: pointer;
+         border-left: none;
+         border-radius: 0 @border-radius @border-radius 0;
+         &:active {
+             opacity: .8;
+         }
+     }
+     .p-input-prefix {
+         border-right: none;
+         border-radius:  @border-radius 0 0 @border-radius ;
+     }
+     .p-input-clear {
+         position: absolute;
+         right: 10px;
+     }
+    input {
+        // width: 100%;
+        flex: 2;
+        box-sizing: border-box;
+        border-radius: @border-radius;
+        padding: 4px 8px;
         height: 32px;
         // border-color: @primary-color;
-        border-radius: @border-radius;
         font-size: 14px;
         outline: none;
-        border: 1px solid @gray-color;
         color: @font-color;
+        overflow: hidden;
+        border: 1px solid @gray-border-color;
         transition: all .3s ease-in-out;
         &::placeholder {
             color: rgba(0,0,0, .5);
@@ -22,10 +53,24 @@
             text-overflow: ellipsis;
         }
         &:focus {
-           .active
-        }
-        &:hover {
             .active
-        }
+         }
+         &:hover {
+            .active
+         }
     }
+    .p-suffix {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+    .p-prefix {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .p-clear {
+        padding-right: 32px;
+    }
+}
+.p-input-search {
+    
 }
