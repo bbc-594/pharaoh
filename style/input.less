@@ -1,0 +1,31 @@
+@import "./common/common.less";
+.active {
+    border-color: @primary-color;
+    box-shadow: 0px 0px 0 2px @primary-1;
+}
+.p-input {
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 4px 10px;
+        height: 32px;
+        // border-color: @primary-color;
+        border-radius: @border-radius;
+        font-size: 14px;
+        outline: none;
+        border: 1px solid @gray-color;
+        color: @font-color;
+        transition: all .3s ease-in-out;
+        &::placeholder {
+            color: rgba(0,0,0, .5);
+            font-size: 14px;
+            text-overflow: ellipsis;
+        }
+        &:focus {
+           .active
+        }
+        &:hover {
+            .active
+        }
+    }
+}
