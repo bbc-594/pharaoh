@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-05 11:42:47
- * @LastEditTime: 2021-03-02 16:21:23
+ * @LastEditTime: 2021-03-03 09:24:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /pharaoh/src/App.vue
@@ -10,13 +10,19 @@
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
   <p-button type="primary" @click="onClick">测试按钮</p-button>
-  <p-input v-model="value" allowClear @pressEnter="onClick">
-    <template v-slot:prefix>
+  <p-input
+    v-model="value"
+    allowClear
+    @pressEnter="onClick"
+    @onBlur="onClick"
+    @onFocus="onClick"
+  >
+    <!-- <template v-slot:prefix>
       <p-icon icon="iconsousuo"/>
     </template>
     <template v-slot:suffix>
        <p-icon icon="iconsousuo"/>
-    </template>
+    </template> -->
   </p-input>
   <p-icon icon="iconsousuo"></p-icon>
 </template>
@@ -25,17 +31,17 @@
 // import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
-  name: "App",
+  name: 'App',
   data() {
     return {
-      value: ""
-    }
+      value: '',
+    };
   },
   methods: {
-    onClick () {
-      console.log('clo :>> ', );
-    }
-  }
+    onClick() {
+      console.log('clo :>> ');
+    },
+  },
 };
 </script>
 

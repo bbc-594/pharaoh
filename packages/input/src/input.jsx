@@ -1,93 +1,85 @@
-import { defineComponent, renderSlot} from 'vue';
+import { defineComponent, renderSlot } from 'vue';
 import { props } from './props';
+import { useInput, useClass } from './use';
+
 const Input = defineComponent({
   name: 'PInput',
-  emits: ['change', 'update:modelValue', 'pressEnter'],
-  setup(props, { emit }) {
-    // const {} = toRef(props);
-    // const value = ref("");
-    const onInput = (e) => {
-      const {
-        target: { value },
-      } = e;
-      console.log('value :>> ', value);
-      emit('update:modelValue', value);
-    };
-    const onChange = (e) => {
-      const {
-        target: { value },
-      } = e;
-      console.log('value :>> ', value);
-      emit('change', value);
-    };
-    const onKeyDown = (e) => {
-      const {
-        keyCode,
-        target: { value },
-      } = e;
-      if (keyCode === 13) {
-        emit('pressEnter', value);
-      }
-    };
-    const onClearInput = () => {
-      console.log('click :>> ', );
-      emit('update:modelValue', '');
-    }
-    return {
+  emits: ['change', 'update:modelValue', 'pressEnter', 'onBlur', 'onFocus'],
+  setup(props, { emit, slots }) {
+    const classes = useClass(slots, props);
+    const {
       onInput,
       onChange,
       onKeyDown,
-      onClearInput
+      onClearInput,
+      onBlur,
+      onFocus,
+    } = useInput(emit);
+    return {
+      onInput,
+      onChange,
+      onFocus,
+      onBlur,
+      onKeyDown,
+      onClearInput,
+      classes,
     };
   },
   props,
-  watch: {
-    modelValue(value) {
-      console.log('value :>> ', value);
-      this.value = value;
-    }
-  },
   render() {
-    const { $props, $slots, $props: {allowClear}, $slots: {prefix, suffix}, onClearInput, onInput, onChange, modelValue } = this;
-    const classes = [];
-    Object.keys($slots).forEach(slot => {
-      classes.push(`p-${slot}`)
-    })
-    if (allowClear) classes.push(`p-clear`)
+    const {
+      $props,
+      $slots,
+      $props: { allowClear },
+      $slots: { prefix, suffix },
+      onClearInput,
+      onInput,
+      onBlur,
+      onFocus,
+      onChange,
+      modelValue,
+      classes,
+    } = this;
     /**
      * 渲染前缀图标
      * @returns
      */
     const renderPrefix = () => {
       if (!prefix) return;
-      return (<span class="p-input-prefix">
-                 {renderSlot($slots, "prefix")}
-              </span>)
-    }
+      return <span class="p-input-prefix">{renderSlot($slots, 'prefix')}</span>;
+    };
     /**
      * 渲染后缀图标
      * @returns
      */
     const renderSuffix = () => {
-      if (!suffix || allowClear) return; 
-      return (<span class="p-input-suffix">
-                 {renderSlot($slots, "prefix")}
-              </span>)
-    }
+      if (!suffix || allowClear) return;
+      return <span class="p-input-suffix">{renderSlot($slots, 'prefix')}</span>;
+    };
     /**
      * 渲染清空图标
      * @returns
      */
-    const renderClear =() => {
+    const renderClear = () => {
       if (!allowClear) return;
-      return (<span class="p-input-clear" onClick={onClearInput}>
-        <p-icon icon="iconqingkong-"/>
-      </span>)
-    }
+      return (
+        <span class="p-input-clear" onClick={onClearInput}>
+          <p-icon icon="iconqingkong-" />
+        </span>
+      );
+    };
     return (
       <div class="p-input">
         {renderPrefix()}
-        <input class={classes} value={modelValue} {...$props} onInput={onInput} onChange={onChange}/>
+        <input
+          class={classes}
+          value={modelValue}
+          {...$props}
+          onInput={onInput}
+          onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
         {renderClear()}
         {renderSuffix()}
       </div>
